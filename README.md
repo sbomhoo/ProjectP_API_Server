@@ -40,9 +40,9 @@ ProjectP API Server
 
 ## API  Info
 > - http://49.142.100.135:7979/
-> - 전체 조회: GET /api/moongins/ 
-> - 폰번호로 조회: GET /api/moongins/:user_phone
-> - 문진표 추가 : POST /api/moongins/ 
+> - 전체 조회: GET /api/moonjins/ 
+> - 폰번호로 조회: GET /api/moonjins/:user_phone
+> - 문진표 추가 : POST /api/moonjins/ 
 >   - body sample = {"user_phone" : "010-333-3333", 
 "checkup_place" : "용산", 
 "user_name" : "이지은", 
