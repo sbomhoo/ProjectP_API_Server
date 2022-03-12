@@ -38,8 +38,18 @@ ProjectP API Server
 >	({"user_phone" : "010-123-1234", "checkup_place" : "관악", "user_name" : "홍길동", "user_birthday" : "930101", "user_gender" : "남" , "Q1" : "Y" , "Q2" : "N" , "Q3" : "N" , >"Q4" : "Y", "Q5": "Y"});
 
 
-
-## API Server Info
-- http://49.142.100.135:7979/
-
-- GET /api/moongins/ 
+## API  Info
+> - http://49.142.100.135:7979/
+> - 전체 조회: GET /api/moongins/ 
+> - 폰번호로 조회: GET /api/moongins/:user_phone
+> - 문진표 추가 : POST /api/moongins/ 
+> -- body = {"user_phone" : "010-333-3333", 
+"checkup_place" : "용산", 
+"user_name" : "이지은", 
+"user_birthday" : "930516", 
+"user_gender" : "여" , 
+"Q1" : "Y" , 
+"Q2" : "Y" , 
+"Q3" : "Y" , 
+"Q4" : "Y", 
+"Q5": "Y"}
