@@ -26,7 +26,7 @@ ProjectP API Server
 > - 대기열 관리자 기능 (내 앞에 몇명 있는지 알기 위해서 대기열 초기화 등과 같은 대기열 관리자 페이지 필요) 
  
 ## 개발 환경
-> - server : nodejs express
+> - back : nodejs v16.13.1 express
 > - front : android , react
 > - DBMS : mongoDB 
 
