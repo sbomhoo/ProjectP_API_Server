@@ -1,6 +1,10 @@
 const express     = require('express');
 const router = express.Router();
 const moonjin = require('../models/moonjin');
+let waitingMap = new Map();
+let waitingNum = 1;
+let lastWaitingNum = 0;
+
 
 // GET ALL 
 router.get('/moonjins', function(req,res){
@@ -10,6 +14,7 @@ router.get('/moonjins', function(req,res){
         res.json(moonjins);
     })
 });
+
 
 // GET SINGLE : 폰번호로 가져오기
 router.get('/moonjins/:user_phone', function(req, res){
@@ -21,7 +26,8 @@ router.get('/moonjins/:user_phone', function(req, res){
     })
 });
 
-// 문진표 추가
+
+// 문진표 추가 + 대기표 발급 
 router.post('/moonjins', function(req, res){
     res.header("Access-Control-Allow-Origin","*");
     var mj = new moonjin();
@@ -45,13 +51,52 @@ router.post('/moonjins', function(req, res){
     mj.save(function(err){
         if(err){
             console.error(err);
-            res.json({result: 0});
+            res.json({result: "문진표 등록 실패"});
             return;
         }
-
-        res.json({result: 1});
+        waitingMap.set(waitingNum, [mj.user_phone,'N']);    //줄 섰으면 Y , 안 섰으면 N
+        res.json({result: waitingNum});
+        waitingNum += 1;
     });
 });
+
+
+//대기열 관리자 - 대기 번호 호출(몇명 대기하세요)
+router.post('/waiting', function(req, res){
+    res.header("Access-Control-Allow-Origin","*");
+
+    const waitingCount = req.body.waiting_count;      //10명, 20명, 30명 ...
+    const waitingStartNum = lastWaitingNum+1;
+    const waitingEndNum = lastWaitingNum+waitingCount;
+
+    /**몇번 부터 몇번 까지 알림 가는 기능 
+     *  
+     * 
+     * */
+    
+    res.json({waitingStartNum: waitingStartNum, waitingEndNum: waitingEndNum}); 
+    
+    lastWaitingNum = waitingEndNum; //마지막 라인업 대기열 번호 업데이트
+    //대기열 Map 업데이트
+    for (let i = waitingStartNum; i<=waitingEndNum; i++) {
+        let mapValues = waitingMap.get(i);  //폰번호
+        waitingMap.set(i, [mapValues[0],'Y']);
+    }
+
+});
+
+
+// 내 앞에 몇명 남았는지
+router.get('/waiting/:waiting_num', function(req, res){
+    res.header("Access-Control-Allow-Origin","*");
+
+    const myWaitingNum = req.params.waiting_num;
+
+    const waitingPersonCnt = myWaitingNum - (lastWaitingNum+1);
+    res.json({result: waitingPersonCnt});
+});
+
+
 
 // GET BOOK BY AUTHOR
 /***
