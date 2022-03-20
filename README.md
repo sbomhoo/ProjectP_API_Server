@@ -69,10 +69,7 @@ ProjectP API Server
 
 ## API  Info
 > - http://49.142.100.135:7979/
-> - 전체 조회: GET /api/moonjins/ 
 
-
-## API 정리
 > 1. GET /moonjins
 > - 전체 문진표 조회
 > - response : 문진표
