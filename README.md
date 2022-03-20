@@ -17,14 +17,19 @@ ProjectP API Server
 ## 검사대상자 프로세스
 > 1. 문진 작성
 > - 문진표 프론트단에서 가지고 있기
+
 > 2. 대기표 발급 클릭 
 > - API Server로 문진데이터 넘김 
+
 > 3.  POST /moonjins 호출
 > - 문진데이터 DB에 저장, 대기표 발급
+
 > 4. 발급된 대기표 프론트단에서 저장
+
 > 5. GET /waiting/:waiting_num호출
 > - 내 앞에 몇명있는지 알려줌.
 > - waitingPersonCnt(내 앞에 몇명 남았는지) response 해줌
+
 > 6. 프론트 단에서 보여준다. 
 
 ## 대기열 관리자 프로세스
