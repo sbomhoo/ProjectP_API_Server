@@ -14,6 +14,13 @@ ProjectP API Server
 >- 검사자는 내 앞에 몇명이 있는지 확인 할 수 있다.
 >- 대기열 관리자는 APP을 통해 대기자를 호출 할 수 있다.
 
+## 개발 항목
+> - 내 앞에 몇명있는지
+> - 몇번 부터 몇번 까지 대기하세요(알림)
+> - 대기열 관리자 기능 (내 앞에 몇명 있는지 알기 위해서 대기열 초기화 등과 같은 대기열 관리자 페이지 필요) 
+ 
+-------
+
 ## 검사대상자 프로세스
 > 1. 문진 작성
 > - 문진표 프론트단에서 가지고 있기
@@ -43,14 +50,9 @@ ProjectP API Server
 > 3. waitingStartNum~waitingEndNum 사이의 대기번호에게 알림  (아직 미구현)
  
 
+-------
 
 
-
-## 개발 항목
-> - 내 앞에 몇명있는지
-> - 몇번 부터 몇번 까지 대기하세요(알림)
-> - 대기열 관리자 기능 (내 앞에 몇명 있는지 알기 위해서 대기열 초기화 등과 같은 대기열 관리자 페이지 필요) 
- 
 ## 개발 환경
 > - back : nodejs v16.13.1 express
 > - front : android , react
@@ -63,13 +65,11 @@ ProjectP API Server
 > - sample document : 
 >	({"user_phone" : "010-123-1234", "checkup_place" : "관악", "user_name" : "홍길동", "user_birthday" : "930101", "user_gender" : "남" , "Q1" : "Y" , "Q2" : "N" , "Q3" : "N" , >"Q4" : "Y", "Q5": "Y"});
 
+-------
 
 ## API  Info
 > - http://49.142.100.135:7979/
 > - 전체 조회: GET /api/moonjins/ 
-> - 폰번호로 조회: GET /api/moonjins/:user_phone
-> - 문진표 추가 : POST /api/moonjins/ 
->   - 
 
 
 ## API 정리
