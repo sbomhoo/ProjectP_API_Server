@@ -1,7 +1,7 @@
 const express     = require('express');
 const router = express.Router();
 const moonjin = require('../models/moonjin');
-let waitingMap = new Map();
+let waitingInfo = [];
 let waitingNum = 1;
 let lastWaitingNum = 0;
 
@@ -54,7 +54,7 @@ router.post('/moonjins', function(req, res){
             res.json({result: "문진표 등록 실패"});
             return;
         }
-        waitingMap.set(waitingNum, [mj.user_phone,'N']);    //줄 섰으면 Y , 안 섰으면 N
+        waitingInfo.push({"waitingNum": waitingNum, "user_phone": mj.user_phone, "checkup_place": mj.checkup_place, "isLineUp":'N'});  //줄 섰으면 Y , 안 섰으면 N
         res.json({result: waitingNum});
         waitingNum += 1;
     });
@@ -70,7 +70,7 @@ router.post('/waiting', function(req, res){
     const waitingEndNum = lastWaitingNum+waitingCount;
 
     /**몇번 부터 몇번 까지 알림 가는 기능 
-     *  
+     * 카톡  VS Firebase 클라우드 메시징
      * 
      * */
     
@@ -79,14 +79,25 @@ router.post('/waiting', function(req, res){
     lastWaitingNum = waitingEndNum; //마지막 라인업 대기열 번호 업데이트
     //대기열 Map 업데이트
     for (let i = waitingStartNum; i<=waitingEndNum; i++) {
-        let mapValues = waitingMap.get(i);  //폰번호
-        waitingMap.set(i, [mapValues[0],'Y']);
+        let waitingValues = waitingInfo.find(element => element.waitingNum === i);
+        waitingValues.isLineUp = 'Y';
     }
 
 });
 
+// 내 앞에 몇명 남았는지_번호로
+router.get('/waiting/:user_phone', function(req, res){
+    res.header("Access-Control-Allow-Origin","*");
 
-// 내 앞에 몇명 남았는지
+    const userPhone = req.params.user_phone;
+    const waitingInfoObj = waitingInfo.find(element => element.user_phone === userPhone);
+    const myWaitingNum = waitingInfoObj.waitingNum;
+
+    const waitingPersonCnt = myWaitingNum - (lastWaitingNum+1);
+    res.json({result: waitingPersonCnt});
+});
+
+// 내 앞에 몇명 남았는지_대기번호로
 router.get('/waiting/:waiting_num', function(req, res){
     res.header("Access-Control-Allow-Origin","*");
 
