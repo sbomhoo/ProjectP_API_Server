@@ -87,7 +87,7 @@ ProjectP API Server
 >- 대기열 관리자 - 대기 번호 호출 ( 몇명 대기하세요~)
 >- request body : waiting_count (숫자형)
 >- response : waitingStartNum, waitingEndNum
-> 5. GET /waiting/:waiting_num
-> - 내 앞에 몇명 남았는지
-> - request header : waiting_num (내 대기 번호)
+> 5. GET /waiting/:user_phone
+> - 내 앞에 몇명 남았는지 
+> - request header : user_phone (내 폰 번호)
 > - response : waitingPersonCnt (내 앞에 남아 있는 사람 수)
